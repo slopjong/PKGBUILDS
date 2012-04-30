@@ -10,7 +10,7 @@ backup=(opt/maven/conf/settings.xml)
 source=(http://apache.miloslavbrada.cz//maven/binaries/apache-maven-3.0.4-bin.tar.gz \
 	maven.sh)
 md5sums=('e513740978238cb9e4d482103751f6b7'
-         'cac30b2331aeb63e40297bbea7fffcc9')
+         'e5e2b68f0bc7ef9d3e706a574689ec85')
 
 provides=('maven')
 conflicts=('maven')
