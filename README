@@ -1,1 +1,8 @@
-wget --no-check-certificate https://github.com/slopjong/PKGBUILDS/tarball/master -O SLOPBUILDS.tar.gz
+PKGBUILDS is a collection of Archlinux package descriptions.
+
+To install a package e.g. maven3, download the collection or clone the repository.
+
+* wget --no-check-certificate https://github.com/slopjong/PKGBUILDS/tarball/master -O SLOPBUILDS.tar.gz
+* git clone --depth 1 git://github.com/slopjong/PKGBUILDS.git SLOPBUILDS
+
+Change into the directory of the desired package and execute 'makepkg -si'. This will build the package and install it afterwards.
