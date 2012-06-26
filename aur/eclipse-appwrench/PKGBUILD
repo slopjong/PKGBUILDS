@@ -8,6 +8,8 @@ license=('custom')
 depends=('eclipse' 'eclipse-gpe')
 makedepends=('unzip')
 
+_updatesite="http://appwrench.onpositive.com/static/updatesite"
+
 source=('http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.charting_1.3.9.201205250021.jar'
         'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.commons.platform_1.3.9.201104121317.jar'
         'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.commons.platform.equinox_1.0.0.201104121317.jar'
@@ -25,22 +27,22 @@ source=('http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositiv
         'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.semantic.ui_1.3.9.201104121317.jar'
         'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.ui.commons.tools_1.3.9.201205250021.jar')
 
-noextract=('com.onpositive.gae.profiler.epl_1.3.9.201205250021.jar'
-        'com.onpositive.ui.commons.tools_1.3.9.201205250021.jar'
-        'com.onpositive.semantic.model_1.3.9.201104121317.jar'
-        'com.onpositive.gae.console_1.3.9.201205250021.jar'
+noextract=('com.onpositive.charting_1.3.9.201205250021.jar'
         'com.onpositive.commons.platform_1.3.9.201104121317.jar'
-        'com.onpositive.google.appengine.tools_1.3.9.201205250021.jar'
         'com.onpositive.commons.platform.equinox_1.0.0.201104121317.jar'
-        'com.onpositive.google.api.repackaged_1.3.9.201205250021.jar'
-        'com.onpositive.semantic.model.impl_1.3.9.201010221147.jar'
-        'com.onpositive.gae.profiler_1.3.9.201205250021.jar'
         'com.onpositive.gae.appwrench_1.5.0.jar'
         'com.onpositive.gae.base.manager_1.3.9.201205250021.jar'
-        'com.onpositive.charting_1.3.9.201205250021.jar'
+        'com.onpositive.gae.console_1.3.9.201205250021.jar'
+        'com.onpositive.gae.profiler_1.3.9.201205250021.jar'
+        'com.onpositive.gae.profiler.epl_1.3.9.201205250021.jar'
+        'com.onpositive.gae.tools.core_1.3.9.201205250021.jar'
+        'com.onpositive.google.api.repackaged_1.3.9.201205250021.jar'
+        'com.onpositive.google.appengine.tools_1.3.9.201205250021.jar'
         'com.onpositive.profiler.core_1.3.9.201205250021.jar'
+        'com.onpositive.semantic.model_1.3.9.201104121317.jar'
+        'com.onpositive.semantic.model.impl_1.3.9.201010221147.jar'
         'com.onpositive.semantic.ui_1.3.9.201104121317.jar'
-        'com.onpositive.gae.tools.core_1.3.9.201205250021.jar')
+        'com.onpositive.ui.commons.tools_1.3.9.201205250021.jar')
         
 md5sums=('923978c2db60395e5e145920c6bc78a0'
         'eede88d697a0f8bb26c5d7130d8d60ec'
@@ -58,22 +60,26 @@ md5sums=('923978c2db60395e5e145920c6bc78a0'
         '8154a3d3af24e2e01215279b80a975dc'
         'e66c23e914a991c85997503b78fcb6b1'
         'dba00c04e159804588e3dda07b9f2c3e')
+
 build()
 {
     return 0;
 }
+
 package()
 {    
     _dest=${pkgdir}/usr/share/eclipse/dropins/${pkgname/eclipse-}/eclipse
+    mkdir -p ${_dest}/{features,plugins}
 
     for ((i=0; i < ${#source[@]}; i++))
     do
-        # remove the update site from the iterated resource
-        source[$i]=${source[$i]/http:\/\/appwrench.onpositive.com\/static\/updatesite\/}
-        
-        # TODO: explode the string whose first part is the directory where the resource belongs to
-        #install -m644 ${source[$i]} ${_dest}/features
-        #install -m644 ${source[$i]} ${_dest}/plugins
-    done
-    
+        # remove the update site from the source
+        source[$i]=${source[$i]/${_updatesite}\/}
+        # get the folder where the source belongs to
+        folder=${source[$i]/\/${noextract[$i]}}
+        # remove the folder from the source
+        source[$i]=${source[$i]/${folder}\/}
+        # install the source
+        install -m644 ${source[$i]} ${_dest}/${folder}
+    done  
 }
