@@ -1,0 +1,78 @@
+pkgname=eclipse-appwrench
+pkgver=1.3
+pkgrel=1
+pkgdesc="Eclipse plugins devoted to development and testing of Java applications for Google App Engine."
+arch=('any')
+url="http://appwrench.onpositive.com"
+license=('custom')
+depends=('eclipse' 'eclipse-gpe')
+makedepends=('unzip')
+
+source=('http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.charting_1.3.9.201205250021.jar'
+        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.commons.platform_1.3.9.201104121317.jar'
+        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.commons.platform.equinox_1.0.0.201104121317.jar'
+        'http://appwrench.onpositive.com/static/updatesite/features/com.onpositive.gae.appwrench_1.5.0.jar'
+        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.gae.base.manager_1.3.9.201205250021.jar'
+        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.gae.console_1.3.9.201205250021.jar'
+        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.gae.profiler_1.3.9.201205250021.jar'
+        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.gae.profiler.epl_1.3.9.201205250021.jar'
+        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.gae.tools.core_1.3.9.201205250021.jar'
+        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.google.api.repackaged_1.3.9.201205250021.jar'
+        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.google.appengine.tools_1.3.9.201205250021.jar'
+        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.profiler.core_1.3.9.201205250021.jar'
+        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.semantic.model_1.3.9.201104121317.jar'
+        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.semantic.model.impl_1.3.9.201010221147.jar'
+        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.semantic.ui_1.3.9.201104121317.jar'
+        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.ui.commons.tools_1.3.9.201205250021.jar')
+
+noextract=('com.onpositive.gae.profiler.epl_1.3.9.201205250021.jar'
+        'com.onpositive.ui.commons.tools_1.3.9.201205250021.jar'
+        'com.onpositive.semantic.model_1.3.9.201104121317.jar'
+        'com.onpositive.gae.console_1.3.9.201205250021.jar'
+        'com.onpositive.commons.platform_1.3.9.201104121317.jar'
+        'com.onpositive.google.appengine.tools_1.3.9.201205250021.jar'
+        'com.onpositive.commons.platform.equinox_1.0.0.201104121317.jar'
+        'com.onpositive.google.api.repackaged_1.3.9.201205250021.jar'
+        'com.onpositive.semantic.model.impl_1.3.9.201010221147.jar'
+        'com.onpositive.gae.profiler_1.3.9.201205250021.jar'
+        'com.onpositive.gae.appwrench_1.5.0.jar'
+        'com.onpositive.gae.base.manager_1.3.9.201205250021.jar'
+        'com.onpositive.charting_1.3.9.201205250021.jar'
+        'com.onpositive.profiler.core_1.3.9.201205250021.jar'
+        'com.onpositive.semantic.ui_1.3.9.201104121317.jar'
+        'com.onpositive.gae.tools.core_1.3.9.201205250021.jar')
+        
+md5sums=('923978c2db60395e5e145920c6bc78a0'
+        'eede88d697a0f8bb26c5d7130d8d60ec'
+        '610eacbe4069a627e1404976dc84b05d'
+        'da7e1b343fa5ba192bb9d374bad102d2'
+        '27871d2d3e5b6f8ab4774193a2e7cc97'
+        'b92a93be936d8ece7f0d328f7547da78'
+        'da73a6690c4e7ddc3479efff75aaeb6e'
+        'da66ecd70fe7f3ba6f7ed7f44bebd983'
+        '46dd21d9ef3a6da246c7669afe0eb71d'
+        '6cd4fd6b6c15db6f0b38a26aef48c2c8'
+        '9f6fef3235014fb6effbe472f6c9b19a'
+        '32a522f66f29aefe96e7b99c2dd85052'
+        '8e88194516bf4995b4dc2852c075624d'
+        '8154a3d3af24e2e01215279b80a975dc'
+        'e66c23e914a991c85997503b78fcb6b1'
+        'dba00c04e159804588e3dda07b9f2c3e')
+build()
+{
+    return 0;
+}
+package()
+{    
+    _dest=${pkgdir}/usr/share/eclipse/dropins/${pkgname/eclipse-}/eclipse
+
+    for ((i=0; i < ${#source[@]}; i++))
+    do
+        # TODO: remove the update site from the iterated resource
+        
+        # TODO: check if the iterated resource is a feature or a plugin
+        #install -m644 ${source[$i]} ${_dest}/features
+        #install -m644 ${source[$i]} ${_dest}/plugins
+    done
+    
+}
