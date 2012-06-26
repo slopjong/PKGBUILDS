@@ -10,22 +10,22 @@ makedepends=('unzip')
 
 _updatesite="http://appwrench.onpositive.com/static/updatesite"
 
-source=('http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.charting_1.3.9.201205250021.jar'
-        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.commons.platform_1.3.9.201104121317.jar'
-        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.commons.platform.equinox_1.0.0.201104121317.jar'
-        'http://appwrench.onpositive.com/static/updatesite/features/com.onpositive.gae.appwrench_1.5.0.jar'
-        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.gae.base.manager_1.3.9.201205250021.jar'
-        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.gae.console_1.3.9.201205250021.jar'
-        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.gae.profiler_1.3.9.201205250021.jar'
-        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.gae.profiler.epl_1.3.9.201205250021.jar'
-        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.gae.tools.core_1.3.9.201205250021.jar'
-        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.google.api.repackaged_1.3.9.201205250021.jar'
-        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.google.appengine.tools_1.3.9.201205250021.jar'
-        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.profiler.core_1.3.9.201205250021.jar'
-        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.semantic.model_1.3.9.201104121317.jar'
-        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.semantic.model.impl_1.3.9.201010221147.jar'
-        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.semantic.ui_1.3.9.201104121317.jar'
-        'http://appwrench.onpositive.com/static/updatesite/plugins/com.onpositive.ui.commons.tools_1.3.9.201205250021.jar')
+source=(${_updatesite}'/plugins/com.onpositive.charting_1.3.9.201205250021.jar'
+        ${_updatesite}'/plugins/com.onpositive.commons.platform_1.3.9.201104121317.jar'
+        ${_updatesite}'/plugins/com.onpositive.commons.platform.equinox_1.0.0.201104121317.jar'
+        ${_updatesite}'/features/com.onpositive.gae.appwrench_1.5.0.jar'
+        ${_updatesite}'/plugins/com.onpositive.gae.base.manager_1.3.9.201205250021.jar'
+        ${_updatesite}'/plugins/com.onpositive.gae.console_1.3.9.201205250021.jar'
+        ${_updatesite}'/plugins/com.onpositive.gae.profiler_1.3.9.201205250021.jar'
+        ${_updatesite}'/plugins/com.onpositive.gae.profiler.epl_1.3.9.201205250021.jar'
+        ${_updatesite}'/plugins/com.onpositive.gae.tools.core_1.3.9.201205250021.jar'
+        ${_updatesite}'/plugins/com.onpositive.google.api.repackaged_1.3.9.201205250021.jar'
+        ${_updatesite}'/plugins/com.onpositive.google.appengine.tools_1.3.9.201205250021.jar'
+        ${_updatesite}'/plugins/com.onpositive.profiler.core_1.3.9.201205250021.jar'
+        ${_updatesite}'/plugins/com.onpositive.semantic.model_1.3.9.201104121317.jar'
+        ${_updatesite}'/plugins/com.onpositive.semantic.model.impl_1.3.9.201010221147.jar'
+        ${_updatesite}'/plugins/com.onpositive.semantic.ui_1.3.9.201104121317.jar'
+        ${_updatesite}'/plugins/com.onpositive.ui.commons.tools_1.3.9.201205250021.jar')
 
 noextract=('com.onpositive.charting_1.3.9.201205250021.jar'
         'com.onpositive.commons.platform_1.3.9.201104121317.jar'
