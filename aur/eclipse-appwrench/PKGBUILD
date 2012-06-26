@@ -68,9 +68,10 @@ package()
 
     for ((i=0; i < ${#source[@]}; i++))
     do
-        # TODO: remove the update site from the iterated resource
+        # remove the update site from the iterated resource
+        source[$i]=${source[$i]/http:\/\/appwrench.onpositive.com\/static\/updatesite\/}
         
-        # TODO: check if the iterated resource is a feature or a plugin
+        # TODO: explode the string whose first part is the directory where the resource belongs to
         #install -m644 ${source[$i]} ${_dest}/features
         #install -m644 ${source[$i]} ${_dest}/plugins
     done
