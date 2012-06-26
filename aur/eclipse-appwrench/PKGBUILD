@@ -1,11 +1,12 @@
 pkgname=eclipse-appwrench
 pkgver=1.3
 pkgrel=1
-pkgdesc="Eclipse plugins devoted to development and testing of Java applications for Google App Engine."
+pkgdesc="Develop and test Java applications for Google App Engine."
 arch=('any')
 url="http://appwrench.onpositive.com"
 license=('custom')
-depends=('eclipse' 'eclipse-gpe')
+_eclipseversion=3.5
+depends=('eclipse>='"$_eclipseversion"'' 'eclipse-gpe')
 makedepends=('unzip')
 
 _updatesite="http://appwrench.onpositive.com/static/updatesite"
