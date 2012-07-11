@@ -1,0 +1,67 @@
+# Maintainer: Romain Schmitz <myself at slopjong dot de>
+#
+# PKGBUILD generated with the eclipse-artifacts tool.
+#
+# Bugs to be filed here:
+#
+#    https://github.com/slopjong/eclipse-artifacts/issues/new
+
+pkgname=eclipse-grepcode
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Browse the source code of open source libraries."
+arch=('any')
+url="http://grepcode.com/eclipse"
+license=('EPL')
+_eclipseversion=3.5
+depends=('eclipse>='"$_eclipseversion"'' )
+makedepends=('unzip')
+
+_updatesite="http://repository.grepcode.com/java/ext-eclipse/"
+
+source=(
+	${_updatesite}'features/com.grepcode.eclipse.feature_0.1.0.jar' 
+	${_updatesite}'plugins/com.grepcode.eclipse.plugin_0.1.0.jar'
+)
+
+noextract=(
+	'com.grepcode.eclipse.feature_0.1.0.jar' 
+	'com.grepcode.eclipse.plugin_0.1.0.jar' 
+)
+
+md5sums=(
+	'b0f89489df120822de353ce25f6e14d8' 
+	'a6508cedc1f0694242bfe7f565fe0b9e' 
+)
+
+install=eclipse-grepcode.install
+
+build()
+{
+    return 0;
+}
+
+package()
+{    
+    _dest=${pkgdir}/usr/share/eclipse/dropins/${pkgname/eclipse-}/eclipse
+    mkdir -p ${_dest}/{features,plugins}
+
+    for ((i=0; i < ${#source[@]}; i++))
+    do
+        # remove the update site from the source
+        source[$i]=${source[$i]/${_updatesite}}
+        # get the folder where the source belongs to
+        folder=${source[$i]/\/${noextract[$i]}}
+        # remove the folder from the source
+        source[$i]=${source[$i]/${folder}\/}
+        # install the source
+        install -m644 ${source[$i]} ${_dest}/${folder}
+    done  
+
+    mkdir -p ${pkgdir}/etc/profile.d
+    _envfile=${pkgdir}/etc/profile.d/${pkgname}.sh
+    echo "export MOZILLA_FIVE_HOME=/usr/bin" > ${_envfile}
+    chmod 755 ${_envfile}
+    #rm ${_dest}/${pkgname}.install
+}
+

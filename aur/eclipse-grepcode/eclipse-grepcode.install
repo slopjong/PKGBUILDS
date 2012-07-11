@@ -1,0 +1,20 @@
+
+post_install() {
+  echo ""
+  echo "This eclipse plugin needs an environment variable to be set."
+  echo "Please execute this:"
+  echo ""
+  echo "     source /etc/profile.d/eclipse-grepcode.sh"
+  echo ""
+}
+
+post_upgrade() {
+  echo ""
+  echo "This eclipse plugin needs an environment variable to be set."
+  echo "Please execute this:"
+  echo ""
+  echo "     source /etc/profile.d/eclipse-grepcode.sh"
+  echo ""
+}
+
+# vim:set ts=2 sw=2 et:
