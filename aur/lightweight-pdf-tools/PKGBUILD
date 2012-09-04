@@ -1,7 +1,7 @@
 # Maintainer: Romain Schmitz <romain.schmitz@archlinux.lu>
 
 pkgname=lightweight-pdf-tools
-pkgver=0.1
+pkgver=20120904
 pkgrel=1
 pkgdesc="Java-based pdf toolkit with basic join and split features."
 arch=('any')
@@ -17,6 +17,7 @@ md5sums=()
 
 _gitroot="git://github.com/slopjong/${pkgname}.git"
 _gitname=${pkgname}
+_gittag=0.2
 
 build() {
 
@@ -24,11 +25,11 @@ build() {
   msg "Connecting to github.com..."
 
   if [ -d ${srcdir}/${_gitname} ] ; then
-    cd ${_gitname} && git pull origin master && git checkout tags/v${pkgver}
+    cd ${_gitname} && git pull origin master && git checkout v${_gittag}
     msg "The local files are updated."
   else
     git clone ${_gitroot}
-    cd ${_gitname} && git checkout tags/v${pkgver}
+    cd ${_gitname} && git checkout v${_gittag}
   fi
 
   msg "GIT checkout done or server timeout"
