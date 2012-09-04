@@ -3,7 +3,8 @@
 pkgname=lightweight-pdf-tools
 pkgver=20120904
 pkgrel=1
-pkgdesc="Java-based pdf toolkit with basic join and split features."
+pkgdesc="PDF toolkit, easy to use tools to join and split PDF files."
+url="http://github.com/slopjong/lightweight-pdf-tools"
 arch=('any')
 license=('GPL')
 depends=('java-runtime' 'itext')
