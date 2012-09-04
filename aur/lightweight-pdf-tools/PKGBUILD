@@ -1,21 +1,22 @@
-# Maintainer: Romain Schmitz <romain@archlinux.lu>
+# Maintainer: Romain Schmitz <romain.schmitz@archlinux.lu>
 
 pkgname=lightweight-pdf-tools
-pkgver=20120904
+pkgver=0.1
 pkgrel=1
 pkgdesc="Java-based pdf toolkit with basic join and split features."
-arch=('i686' 'x86_64')
+arch=('any')
 license=('GPL')
 depends=('java-runtime' 'itext')
-makedepends=('git' 'apache-ant')
+makedepends=('git' 'apache-ant' 'itext')
 conflicts=('joinpdf')
 provides=('joinpdf')
+replaces=('joinpdf')
 #changelog=${pkgname}.changelog
 source=()
 md5sums=()
 
-_gitroot="git://github.com/slopjong/pdf-tools.git"
-_gitname="pdf-tools"
+_gitroot="git://github.com/slopjong/${pkgname}.git"
+_gitname=${pkgname}
 
 build() {
 
@@ -23,16 +24,18 @@ build() {
   msg "Connecting to github.com..."
 
   if [ -d ${srcdir}/${_gitname} ] ; then
-    cd ${_gitname} && git pull --tags origin master
+    cd ${_gitname} && git pull origin master && git checkout tags/v${pkgver}
     msg "The local files are updated."
   else
     git clone ${_gitroot}
-    cd ${_gitname} && git pull --tags && git checkout tags/v0.1
+    cd ${_gitname} && git checkout tags/v${pkgver}
   fi
 
   msg "GIT checkout done or server timeout"
   msg "Now build ..."  
 
+  rm lib/itextpdf/itextpdf.jar
+  ln -s /usr/share/java/itextpdf.jar lib/itextpdf/itextpdf.jar
   ant linux-package
 }
 
@@ -44,8 +47,8 @@ package() {
   cp ${srcdir}/${_gitname}/bin/joinpdf ${pkgdir}/usr/bin
   cp ${srcdir}/${_gitname}/bin/splitpdf ${pkgdir}/usr/bin
   
-  # install the pdf-tools jar
-  cp ${srcdir}/${_gitname}/lib/pdf-tools.jar ${pkgdir}/usr/share/java
+  # install the lightweight-pdf-tools jar
+  cp ${srcdir}/${_gitname}/lib/${pkgname}.jar ${pkgdir}/usr/share/java
   
   # install the manpages
   gzip -9 ${srcdir}/${_gitname}/doc/joinpdf.1
