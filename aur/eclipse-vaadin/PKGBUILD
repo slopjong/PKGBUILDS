@@ -1,0 +1,73 @@
+# Maintainer: Romain Schmitz <slopjong@archlinux.lu>
+#
+# PKGBUILD generated with the eclipse-artifacts tool.
+#
+# Bugs to be filed here:
+#
+#    https://github.com/slopjong/eclipse-artifacts/issues/new
+
+pkgname=eclipse-vaadin
+pkgver=2.0.0
+pkgrel=1
+pkgdesc="Vaadin eclipse plugin to build modern web applications"
+arch=('any')
+url="https://vaadin.com/eclipse"
+license=('Apache')
+_eclipseversion=3.5
+depends=('eclipse>='"$_eclipseversion"'' )
+makedepends=('unzip')
+
+_updatesite="http://vaadin.com/eclipse/"
+
+source=(
+	feature.jar::${_updatesite}'features/com.vaadin.integration.eclipse_2.0.1.201105170102.jar' 
+	${_updatesite}'plugins/com.vaadin.integration.eclipse_2.0.1.201105170102.jar' 
+	${_updatesite}'plugins/com.vaadin.wysiwyg.eclipse_2.0.1.201105170102.jar' 
+)
+
+noextract=(
+	'feature.jar' 
+	'com.vaadin.integration.eclipse_2.0.1.201105170102.jar' 
+	'com.vaadin.wysiwyg.eclipse_2.0.1.201105170102.jar' 
+)
+
+md5sums=(
+	'66e4065461f7f6a7b63f7bd6051e540e'
+	'cb13d215354fafecdcbcb03ca723b4f2' 
+	'682571c8f0c58c68fb8b88976d102251' 
+)
+
+
+build()
+{
+    return 0;
+}
+
+package()
+{    
+    # here we are in the src directory
+    
+    _dest=${pkgdir}/usr/share/eclipse/dropins/${pkgname/eclipse-}/eclipse
+    mkdir -p ${_dest}/{features,plugins}
+    
+    # quickfix for https://github.com/slopjong/eclipse-artifacts/issues/25
+    install -m644 feature.jar ${_dest}/features/com.vaadin.integration.eclipse_2.0.1.201105170102.jar
+    unset source[0] # remove the first element
+    source=( "${source[@]}" )  # repack the array
+
+    for ((i=0; i < ${#source[@]}; i++))
+    do
+        # remove the update site from the source
+        source[$i]=${source[$i]/${_updatesite}}
+        # get the folder where the source belongs to
+	
+	## quickfix
+	# instead of noextract[$i] we must use noextract[$(($i+1))] because of the source array shift
+        folder=${source[$i]/\/${noextract[$(($i+1))]}}
+        
+	# remove the folder from the source
+        source[$i]=${source[$i]/${folder}\/}
+        # install the source
+        install -m644 ${source[$i]} ${_dest}/${folder}
+    done
+}
