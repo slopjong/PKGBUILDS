@@ -16,7 +16,7 @@ build() {
 
 package() {
 
-  mkdir -p ${pkgdir}/{opt,usr,usr/bin}
+  mkdir -p ${pkgdir}/{opt,usr/bin}
   mv ${srcdir}/${pkgname}-${pkgver}.RELEASE ${pkgdir}/opt/${pkgname}-${pkgver}
   chgrp -R users ${pkgdir}/opt/${pkgname}-${pkgver}
   chmod g+w ${pkgdir}/opt/${pkgname}-${pkgver}
