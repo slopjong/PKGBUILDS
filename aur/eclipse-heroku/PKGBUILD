@@ -14,7 +14,7 @@ arch=('any')
 url="https://devcenter.heroku.com/articles/getting-started-with-heroku-eclipse"
 license=('custom')
 _eclipseversion=3.7
-depends=('eclipse>='"$_eclipseversion"'' )
+depends=('eclipse>='"$_eclipseversion"'' 'eclipse-egit')
 makedepends=('unzip')
 
 _updatesite="https://eclipse-plugin.herokuapp.com/install/"
