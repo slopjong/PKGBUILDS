@@ -20,7 +20,6 @@ package() {
   mv ${srcdir}/${pkgname}-${pkgver}.RELEASE ${pkgdir}/opt/${pkgname}-${pkgver}
   chgrp -R users ${pkgdir}/opt/${pkgname}-${pkgver}
   chmod g+w ${pkgdir}/opt/${pkgname}-${pkgver}
-  cd "$startdir/pkg/usr/bin"
   ln -s /opt/${pkgname}-${pkgver}/bin/roo.sh ${pkgdir}/usr/bin/roo
 }
 
