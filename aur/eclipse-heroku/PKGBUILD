@@ -12,7 +12,10 @@ pkgrel=1
 pkgdesc="Heroku plugin"
 arch=('any')
 url="https://devcenter.heroku.com/articles/getting-started-with-heroku-eclipse"
-license=('custom')
+
+# See https://github.com/heroku/heroku-eclipse-plugin/issues/6
+license=('MIT')
+
 _eclipseversion=3.7
 depends=('eclipse>='"$_eclipseversion"'' 'eclipse-egit')
 makedepends=('unzip')
