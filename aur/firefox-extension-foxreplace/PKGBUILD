@@ -11,16 +11,33 @@ pkgdesc="Replace text in websites."
 arch=('any')
 url="http://addons.mozilla.org/en-US/firefox/addon/${_addon_name}/"
 license=('GPL')
-depends=('firefox')
+depends=('firefox<18')
 source=("http://releases.mozilla.org/pub/mozilla.org/addons/${_addon_id}/${_addon_name}-${pkgver}-fx.xpi")
 sha256sums=('de7692afdf8302d2c29c1c826b7e4f4b1f8a9079fbb0d80da657f1239077cb53')
 
-package() {
+package() 
+{
   cd $srcdir
+  rm *.xpi
   
-  emid=$(sed -n '/.*<em:id>\(.*\)<\/em:id>.*/{s//\1/p;q}' install.rdf) || return 1
-  installdir=$pkgdir/usr/lib/firefox/extensions/$emid
+  # check the <em:id> tag for the id
+  local emid=$(sed -n '/.*<em:id>\(.*\)<\/em:id>.*/{s//\1/p;q}' install.rdf) || return 1
+  
+  # the <em:id> tag might not exist if the id is set in the RDF:Description
+  if [ "$emid" == "" ];
+  then
+    emid=$(egrep -o -m 1 "em:id=\".*\"" install.rdf | sed 's/em:id="//g' | sed 's/"//g') || return 1
+    [[ "$emid" == "" ]] && echo "em:id is empty" && return 1
+  fi
+  
+  local installdir=${pkgdir}/usr/lib/firefox/extensions/${emid}
 
-  install -d ${installdir} || return 1
-  cp -a * ${installdir} || return 1
+  # replace the maxversion tag RDF:Description
+  sed -i 's#<em:maxVersion>.*</em:maxVersion>#<em:maxVersion>17.*</em:maxVersion>#' install.rdf
+  # replace the maxversion attribute in the 
+  sed -i 's#em:maxVersion=".*"#em:maxVersion="17.*"#' install.rdf
+
+  mkdir -p ${installdir}
+  mv * ${installdir} || return 1
+  chmod -R 755 ${installdir}
 }
