@@ -32,9 +32,9 @@ package()
   
   local installdir=${pkgdir}/usr/lib/firefox/extensions/${emid}
 
-  # replace the maxversion tag RDF:Description
+  # replace the maxversion tag
   sed -i 's#<em:maxVersion>.*</em:maxVersion>#<em:maxVersion>17.*</em:maxVersion>#' install.rdf
-  # replace the maxversion attribute in the 
+  # replace the maxversion attribute in the RDF:Description
   sed -i 's#em:maxVersion=".*"#em:maxVersion="17.*"#' install.rdf
 
   mkdir -p ${installdir}
