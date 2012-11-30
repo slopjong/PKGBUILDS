@@ -6,16 +6,33 @@ pkgdesc="Firefox add-on for turning the google search result links back into the
 arch=('any')
 url="http://addons.mozilla.org/en-US/firefox/addon/nogoogle/"
 license=('GPL')
-depends=('firefox')
+depends=('firefox<18')
 source=("http://releases.mozilla.org/pub/mozilla.org/addons/363075/nogoogle-${pkgver}-fx.xpi")
 sha256sums=('c990db5aef7ceaf97f7265c2824c63316d84a57362cc9027a5b4b6ba7562d629')
 
-package() {
+package() 
+{
   cd $srcdir
+  rm *.xpi
   
-  emid=$(sed -n '/.*<em:id>\(.*\)<\/em:id>.*/{s//\1/p;q}' install.rdf) || return 1
-  installdir=$pkgdir/usr/lib/firefox/extensions/$emid
+  # check the <em:id> tag for the id
+  local emid=$(sed -n '/.*<em:id>\(.*\)<\/em:id>.*/{s//\1/p;q}' install.rdf) || return 1
+  
+  # the <em:id> tag might not exist if the id is set in the RDF:Description
+  if [ "$emid" == "" ];
+  then
+    emid=$(egrep -o -m 1 "em:id=\".*\"" install.rdf | sed 's/em:id="//g' | sed 's/"//g') || return 1
+    [[ "$emid" == "" ]] && echo "em:id is empty" && return 1
+  fi
+  
+  local installdir=${pkgdir}/usr/lib/firefox/extensions/${emid}
 
-  install -d ${installdir} || return 1
-  cp -a * ${installdir} || return 1
+  # replace the maxversion tag RDF:Description
+  sed -i 's#<em:maxVersion>.*</em:maxVersion>#<em:maxVersion>17.*</em:maxVersion>#' install.rdf
+  # replace the maxversion attribute in the 
+  sed -i 's#em:maxVersion=".*"#em:maxVersion="17.*"#' install.rdf
+
+  mkdir -p ${installdir}
+  mv * ${installdir} || return 1
+  chmod -R 755 ${installdir}
 }
