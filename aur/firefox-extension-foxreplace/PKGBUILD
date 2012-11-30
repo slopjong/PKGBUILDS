@@ -1,0 +1,26 @@
+# Maintainer: Romain Schmitz <slopjong@archlinux.lu>
+
+_addon_name=foxreplace
+_addon_id=6510
+_addon_version=0.13.3
+
+pkgname=firefox-extension-${_addon_name}
+pkgver=${_addon_version}
+pkgrel=1
+pkgdesc="Replace text in websites."
+arch=('any')
+url="http://addons.mozilla.org/en-US/firefox/addon/${_addon_name}/"
+license=('GPL')
+depends=('firefox')
+source=("http://releases.mozilla.org/pub/mozilla.org/addons/${_addon_id}/${_addon_name}-${pkgver}-fx.xpi")
+sha256sums=('de7692afdf8302d2c29c1c826b7e4f4b1f8a9079fbb0d80da657f1239077cb53')
+
+package() {
+  cd $srcdir
+  
+  emid=$(sed -n '/.*<em:id>\(.*\)<\/em:id>.*/{s//\1/p;q}' install.rdf) || return 1
+  installdir=$pkgdir/usr/lib/firefox/extensions/$emid
+
+  install -d ${installdir} || return 1
+  cp -a * ${installdir} || return 1
+}
