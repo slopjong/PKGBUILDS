@@ -1,0 +1,22 @@
+# Maintainer: Romain Schmitz <myself at slopjong dot de>
+
+pkgname=dmidecode
+pkgver=2.11
+pkgrel=1
+pkgdesc=" Get information about your system hardware."
+arch=('i686' 'x86_64')
+url="http://www.nongnu.org/dmidecode/"
+license=('GPL')
+depends=('make')
+source=(http://download.savannah.gnu.org/releases/$pkgname/$pkgname-$pkgver.tar.gz)
+md5sums=('9fddbbc3e330bee5950b8b5d424a57cb')
+
+build() {
+  cd "$srcdir"/$pkgname-$pkgver
+  make
+ }
+ 
+ package() {
+  cd "$srcdir"/$pkgname-$pkgver
+  make DESTDIR="$pkgdir" prefix=/usr sbindir=/usr/bin install
+ }
