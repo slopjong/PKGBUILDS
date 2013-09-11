@@ -41,13 +41,13 @@ package() {
   
   # create an apache config
   cat >"$_confdir/apache.example.conf" <<EOF
-	Alias /"${pkgname}" "/usr/share/webapps/nconf"
+	Alias /nconf "/usr/share/webapps/nconf"
 	<Directory "/usr/share/webapps/nconf">
-		AllowOverride All
-		Options FollowSymlinks
-		Order allow,deny
-		Allow from all
-		php_admin_value open_basedir "/srv/:/tmp/:/usr/share/webapps/:/etc/webapps:/usr/share/pear/"
+			AllowOverride All
+			Options FollowSymlinks
+			Order allow,deny
+			Allow from all
+			php_admin_value open_basedir "/srv/:/tmp/:/usr/share/webapps/:/etc/webapps:/usr/share/pear/"
 	</Directory>
 EOF
 }
