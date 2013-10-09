@@ -1,0 +1,17 @@
+# freefreeseer-record 
+** Message: pygobject_register_sinkfunc is deprecated (GstObject)
+Traceback (most recent call last):
+  File "/usr/bin/freeseer-record", line 29, in <module>
+    from freeseer.frontend.default.main import *
+  File "/usr/lib/python2.7/site-packages/freeseer/frontend/default/main.py", line 33, in <module>
+    from freeseer.framework.freeseer_about import *
+ImportError: No module named freeseer_about
+
+# freeseer-config 
+** Message: pygobject_register_sinkfunc is deprecated (GstObject)
+Traceback (most recent call last):
+  File "/usr/bin/freeseer-config", line 29, in <module>
+    from freeseer.frontend.configtool.freeseer_configtool import *
+  File "/usr/lib/python2.7/site-packages/freeseer/frontend/configtool/freeseer_configtool.py", line 33, in <module>
+    from freeseer_configtool_ui import *
+ImportError: No module named freeseer_configtool_ui
