@@ -19,15 +19,17 @@ build() {
   cd "$srcdir/$pkgname-$pkgver"
 
   # python2 fixes
-  sed -i "s|\(bin/python\).*|\12|" `grep -rl bin/python .`
+  #sed -i "s|\(bin/python\).*|\12|" `grep -rl bin/python .`
 
-  python2 setup.py build
+  #python2 setup.py build
+  python setup.py build
 }
 
 package() {
   cd "$srcdir/$pkgname-$pkgver"
 
-  python2 setup.py install --root="$pkgdir/"
+  #python2 setup.py install --root="$pkgdir/"
+  python setup.py install --root="$pkgdir/"
 }
 
 # vim:set ts=2 sw=2 et:
