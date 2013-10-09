@@ -15,3 +15,10 @@ Traceback (most recent call last):
   File "/usr/lib/python2.7/site-packages/freeseer/frontend/configtool/freeseer_configtool.py", line 33, in <module>
     from freeseer_configtool_ui import *
 ImportError: No module named freeseer_configtool_ui
+
+
+
+#####################
+
+ImportError: No module named talkeditor_ui_qt
+ImportError: No module named freeseer_configtool_ui
