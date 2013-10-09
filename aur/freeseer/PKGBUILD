@@ -1,0 +1,33 @@
+# Submitter: SpepS <dreamspepser at yahoo dot it>
+# Maintainer: slopjong {slopjong <atsign> slopjong <dotsign> de}
+
+pkgname=freeseer
+pkgver=3.0.0
+pkgrel=1
+pkgdesc="A video capture utility capable of capturing presentations."
+arch=(any)
+url="https://github.com/Freeseer/freeseer"
+license=('GPL')
+depends=('python2-pyqt' 'python2-feedparser' 'gstreamer0.10-python')
+makedepends=('python2-distribute')
+conflicts=("$pkgname-git")
+source=("https://github.com/Freeseer/$pkgname/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz")
+
+md5sums=('712c6abe4f95f2c0dd118ed7f18fb28f')
+
+build() {
+  cd "$srcdir/$pkgname-$pkgver"
+
+  # python2 fixes
+  sed -i "s|\(bin/python\).*|\12|" `grep -rl bin/python .`
+
+  python2 setup.py build
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver"
+
+  python2 setup.py install --root="$pkgdir/"
+}
+
+# vim:set ts=2 sw=2 et:
