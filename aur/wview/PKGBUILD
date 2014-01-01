@@ -1,5 +1,5 @@
-# Submitter: Thomas Techinus ttech@mostlynothing.info
-# Maintainer: Romain Schmitz <slopjong .at. slopjong .dot. de>
+# Maintainer: Thomas Techinus ttech@mostlynothing.info
+# Contributor: Romain Schmitz <slopjong .at. slopjong .dot. de>
 
 pkgname=wview
 pkgver=5.20.2
@@ -35,9 +35,9 @@ build() {
 
 package() {
   cd $srcdir/$pkgname-$pkgver
-  make DESTDIR=$pkgdir install || return 1
+  make DESTDIR=$pkgdir install
   echo "update config set value='/var/wview/img' where name='HTMLGEN_IMAGE_PATH';" | sqlite3 "$pkgdir"/etc/wview/wview-conf.sdb
-  install -D -m755 "${srcdir}/wview" "${pkgdir}/bin/wviewctl" || return 1
+  install -D -m755 "${srcdir}/wview" "${pkgdir}/bin/wviewctl"
   install -D -m644 "${srcdir}/wview.service" "${pkgdir}/usr/lib/systemd/system/wview.service"
   echo "Make sure to run wviewconfig and wviewhtmlconfig if this is your first time installing!"
 }
