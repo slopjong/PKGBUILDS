@@ -1,0 +1,22 @@
+# Maintainer: Romain Schmitz <slopjong .at. slopjong .dot. de>
+
+pkgname=bootstrap
+pkgver=1
+pkgrel=1
+pkgdesc="Twitter Bootstrap offline documentation."
+arch=('any')
+url="http://getbootstrap.com/"
+license=('apache')
+source=(https://github.com/twbs/bootstrap/archive/v2.3.2.tar.gz https://github.com/slopjong/bootstrap-offline-docs/archive/v3.0.3.tar.gz)
+sha512sums=('e1efbeac304e64f2828751ef4aba28bf3eb2e01578e84c3d08779a861da2d5d69b3bdba892da972a7b504ab300f3a903bfea10af1e1cde91c9692421875c126a'
+	    '63ccaafaf25c9167f6fbe14e72022bb7572d922e7fd701e6e6ffca650eeedc1f396869ecfa66bf6aacd73c6ebfd7ffc8388c291746053fb1624e205ac8be4ab2')
+
+build() {
+  :
+}
+
+package() {
+  mkdir -p "$pkgdir"/usr/share/doc/bootstrap/
+  cp -r "$srcdir"/bootstrap-2.3.2/docs "$pkgdir"/usr/share/doc/bootstrap/2.3.2
+  cp -r "$srcdir"/bootstrap-offline-docs-3.0.3 "$pkgdir"/usr/share/doc/bootstrap/3.0.3
+}
