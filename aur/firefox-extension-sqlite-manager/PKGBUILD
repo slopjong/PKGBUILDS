@@ -22,11 +22,11 @@ sha256sums=('0d8e0203a082ee28fa489971e55b6ad6d2042b336882d3b0a579c3790d068c15')
 #sha256sums=('cf7966ec5daeb76b28b21f7f2ce0d1d6efc3d4679e4828f833df385c776de719')
 
 build() {
-  cd $srcdir
-  emid=$(sed -n '/.*<em:id>\(.*\)<\/em:id>.*/{s//\1/p;q}' install.rdf) || return 1
-  local dstdir=$pkgdir/usr/lib/firefox/extensions/${emid}
-  install -d $dstdir
+  cd "$srcdir"
+  emid=$(sed -n '/.*<em:id>\(.*\)<\/em:id>.*/{s//\1/p;q}' install.rdf)
+  local dstdir="$pkgdir/usr/lib/firefox/extensions/$emid"
+  install -d "$dstdir"
   #sed -i 's#<em:maxVersion>.*</em:maxVersion>#<em:maxVersion>13.*</em:maxVersion>#' install.rdf
   rm *.xpi
-  mv * $dstdir
+  mv * "$dstdir"
 }
