@@ -1,0 +1,34 @@
+# Maintainer: Romain Schmitz <slopjong .at. slopjong .dot. de>
+
+pkgname=zendframework2-manual-en-rtd
+pkgver=2.2.5
+pkgrel=1
+pkgdesc="End-User Documentation for ZendFramework2"
+arch=('any')
+url="http://framework.zend.com/"
+license=('BSD')
+makedepends=('python-sphinx' 'python-sphinx_rtd_theme')
+options=(!strip)
+source=("https://github.com/zendframework/zf2-documentation/archive/release-2.2.5.tar.gz")
+sha256sums=('386233a0dec9ae9d2b12965ad279d96fd030f341b747134cc27841a21be7a2f5')
+
+build() {
+    cd "$srcdir"/zf2-documentation-release-$pkgver/docs
+    
+    # what language are we packaging for?
+    local lang=en
+    
+    # patch the config file in order to use the read-the-docs template
+    local config=languages/$lang/conf.py
+    sed -i "s|import sys, os|import sys, os, sphinx_rtd_theme|g" "$config"
+    sed -i "s|html_theme = 'default'|html_theme = 'sphinx_rtd_theme'|g" "$config"
+    sed -i "s|\#html_theme_path = \[\]|html_theme_path = \[sphinx_rtd_theme.get_html_theme_path()\]|g" "$config"
+    
+    make html
+}
+
+package() {
+    local lang=en
+    install -d "$pkgdir/usr/share/doc/zendframework2/html/$lang"
+    mv  "$srcdir"/zf2-documentation-release-$pkgver/docs/_build/html "$pkgdir/usr/share/doc/zendframework2/html/$lang"
+}
