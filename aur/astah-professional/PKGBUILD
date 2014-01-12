@@ -1,0 +1,36 @@
+# Maintainer: Caleb Cushing <xenoterracide@gmail.com>
+# Contributor: Romain Schmitz <slopjong .at. slopjong .dot. de>
+# Forked from Phillipe Smith <phillipe@archlinux.com.br>
+
+pkgname='astah-professional'
+_pkgname=${pkgname//-/_}
+pkgver='6.7.0'
+_pkgver=${pkgver//./_}
+pkgrel=1
+pkgdesc='easy-to-use UML2.x modeler'
+arch=('any')
+url="http://astah.net/editions/professional"
+license=('custom:none')
+depends=('java-runtime')
+source=( 'astah' 'astah.desktop' 'astah.png' "http://cdn.change-vision.com/files/${pkgname}-${_pkgver}-43495.zip" )
+md5sums=(
+    '0c171df3eaeff01f13300bcd81050631'
+    '9c747aecbf99f099dd9083094dcb6764'
+    'df84e754977e1958963779b3a59182e1'
+    'e099f7b0c48e3824b59047f905bd5d1c'
+)
+
+build() {
+    mkdir -p "${pkgdir}/usr/{bin,lib/${pkgname}/lib,share/{applications,pixmaps,mime/packages}}"
+}
+
+package() {
+    :
+    #cp -r ${srcdir}/${_pkgname}/lib ${pkgdir}/usr/lib/${pkgname}/
+    #cp -r ${srcdir}/${_pkgname}/template ${pkgdir}/usr/lib/${pkgname}/
+    #install -m644 ${srcdir}/${_pkgname}/astah-api.jar ${pkgdir}/usr/lib/${pkgname}
+    #install -m644 ${srcdir}/${_pkgname}/astah-pro.jar ${pkgdir}/usr/lib/${pkgname}
+    #install -m755 ${srcdir}/astah ${pkgdir}/usr/bin
+    #install -m644 ${srcdir}/astah.desktop ${pkgdir}/usr/share/applications
+    #install -m644 ${srcdir}/astah.png ${pkgdir}/usr/share/pixmaps
+}
