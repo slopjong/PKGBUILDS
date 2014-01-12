@@ -10,6 +10,8 @@ pkgrel=1
 pkgdesc='easy-to-use UML2.x modeler'
 arch=('any')
 url="http://astah.net/editions/professional"
+conflicts=('astah_community')
+replaces=('astah_community')
 license=('custom:none')
 depends=('java-runtime')
 source=( 'astah' 'astah.desktop' 'astah.png' "http://cdn.change-vision.com/files/${pkgname}-${_pkgver}-43495.zip" )
@@ -21,16 +23,16 @@ md5sums=(
 )
 
 build() {
-    mkdir -p "${pkgdir}/usr/{bin,lib/${pkgname}/lib,share/{applications,pixmaps,mime/packages}}"
+    : # nothing to build here
 }
 
 package() {
-    :
-    #cp -r ${srcdir}/${_pkgname}/lib ${pkgdir}/usr/lib/${pkgname}/
-    #cp -r ${srcdir}/${_pkgname}/template ${pkgdir}/usr/lib/${pkgname}/
-    #install -m644 ${srcdir}/${_pkgname}/astah-api.jar ${pkgdir}/usr/lib/${pkgname}
-    #install -m644 ${srcdir}/${_pkgname}/astah-pro.jar ${pkgdir}/usr/lib/${pkgname}
-    #install -m755 ${srcdir}/astah ${pkgdir}/usr/bin
-    #install -m644 ${srcdir}/astah.desktop ${pkgdir}/usr/share/applications
-    #install -m644 ${srcdir}/astah.png ${pkgdir}/usr/share/pixmaps
+    mkdir -p "$pkgdir"/usr/{bin,lib/"${pkgname}"/lib,share/{applications,pixmaps,mime/packages}}
+    cp -r ${srcdir}/${_pkgname}/lib ${pkgdir}/usr/lib/${pkgname}/
+    cp -r ${srcdir}/${_pkgname}/template ${pkgdir}/usr/lib/${pkgname}/
+    install -m644 ${srcdir}/${_pkgname}/astah-api.jar ${pkgdir}/usr/lib/${pkgname}
+    install -m644 ${srcdir}/${_pkgname}/astah-pro.jar ${pkgdir}/usr/lib/${pkgname}
+    install -m755 ${srcdir}/astah ${pkgdir}/usr/bin
+    install -m644 ${srcdir}/astah.desktop ${pkgdir}/usr/share/applications
+    install -m644 ${srcdir}/astah.png ${pkgdir}/usr/share/pixmaps
 }
