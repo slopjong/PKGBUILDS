@@ -1,0 +1,28 @@
+# Maintainer:  Hyacinthe Cartiaux <hyacinthe.cartiaux@free.fr>
+# Contributor: Tianjiao Yin <ytj000+aur@gmail.com>
+# Contributor: Romain Schmitz <slopjong .at. slopjong .dot. de>
+
+_plugin_name=video-downloadhelper
+_plugin_version=4.9.21
+_plugin_id=3006
+pkgdesc="Plugin for firefox. The easy way to download and convert Web videos from hundreds of YouTube-like sites."
+license=('custom')
+
+pkgname=firefox-extension-$_plugin_name
+pkgver=$_plugin_version
+pkgrel=3
+arch=('any')
+url="https://addons.mozilla.org/firefox/addon/$_plugin_id"
+depends=("firefox")
+source=("https://addons.cdn.mozilla.net/storage/public-staging/${_plugin_id}/video_downloadhelper-${_plugin_version}-fx+sm.xpi")
+sha256sums=('f2399581bfaef94e5ffae206d19dac0cee8af13f0c9beab4b727172093ac88c8')
+
+package() {
+  cd $srcdir
+  emid=$(sed -n '/.*<em:id>\(.*\)<\/em:id>.*/{s//\1/p;q}' install.rdf) || return 1
+
+  local dstdir=$pkgdir/usr/lib/firefox/extensions/${emid}
+  install -d $dstdir
+  cp -dpr --no-preserve=ownership * $dstdir
+  rm $dstdir/*.xpi
+}
