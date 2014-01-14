@@ -1,0 +1,50 @@
+# Maintainer: Romain Schmitz <slopjong .at. slopjong .dot. de>
+
+pkgname='visual-paradigm-community'
+_pkgname='Visual_Paradigm'
+# _pkgname=${pkgname//-/_}
+# tr '[:upper:]' '[:lower:]'
+pkgver='11.0'
+_pkgver=${pkgver//./_}
+pkgrel=1
+pkgdesc='Easy-to-use UML2.x modeler, Community Edition'
+arch=('x86_64')
+url="http://www.visual-paradigm.com"
+#conflicts=('visual-paradigm-professional')
+#replaces=('visual-paradigm-professional')
+license=('custom:none')
+depends=('java-runtime')
+source=( "http://eu6.visual-paradigm.com/visual-paradigm/vpumlce11.0/20140105/${_pkgname}_for_UML_CE_Linux_64bit_NoInstall_${_pkgver}_20140105.tar.gz" )
+sha256sums=('cf1a007043ccc3ef3bf7face0c9bf77c2667222f88e2e5e921187612961ec795')
+options=('!strip')
+
+prepare() {
+    find "${srcdir}/${_pkgname}"*"/bin" -type f -exec sed -i "s/\# INSTALL4J_JAVA_HOME_OVERRIDE=/INSTALL4J_JAVA_HOME_OVERRIDE=\$JAVA_HOME/g" "{}" \;
+}
+
+build() {
+    : # nothing to build here
+}
+
+package() {
+    mkdir -p "$pkgdir"/usr/{bin,lib/"${pkgname}"}
+    
+    # delete the bundled jre, we have java declared as a dependency
+    rm -rf "${srcdir}"/${_pkgname}*/jre
+    
+    # copy all the hidden files/directories
+    cp -r "${srcdir}"/${_pkgname}*/.[a-zA-Z0-9]* ${pkgdir}/usr/lib/${pkgname}/
+    
+    # copy all the visible files/directories
+    cp -r "${srcdir}"/${_pkgname}*/* ${pkgdir}/usr/lib/${pkgname}/
+    
+    cat > "$pkgdir"/usr/bin/vp-uml <<BIN
+#!/bin/bash
+#bash -c "cd /usr/lib/visual-paradigm-community/scripts && ./VP-UML.sh"
+/usr/lib/visual-paradigm-community/bin/Visual_Paradigm_for_UML
+BIN
+
+    # fix some file permissions
+    #chmod -R 755 "$pkgdir"/usr/lib/$pkgname/scripts/*.sh "$pkgdir"/usr/bin/*
+    chmod -R 755 "$pkgdir"/usr/bin/*
+}
