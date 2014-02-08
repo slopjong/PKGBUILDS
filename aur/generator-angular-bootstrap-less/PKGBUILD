@@ -1,0 +1,26 @@
+# Maintainer: Romain Schmitz <slopjong .at. slopjong .dot. de>
+
+_npmname=generator-angular-bootstrap-less
+_npmver=1.0.0
+pkgname=nodejs-generator-angular-bootstrap-less # All lowercase
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Yeoman generator for applications using AngularJS, Bootstrap and LESS"
+arch=(any)
+url="https://npmjs.org/package/generator-angular-bootstrap-less"
+license=(MIT)
+depends=('nodejs' )
+optdepends=()
+source=(http://registry.npmjs.org/$_npmname/-/$_npmname-$_npmver.tgz)
+noextract=($_npmname-$_npmver.tgz)
+sha1sums=(0fe543709582cbbb7581806a1de217e3c4f5832a)
+
+package() {
+  cd "$srcdir"
+  local _npmdir="$pkgdir/usr/lib/node_modules/"
+  mkdir -p "$_npmdir"
+  cd "$_npmdir"
+  npm install -g --prefix "$pkgdir/usr" $_npmname@$_npmver
+}
+
+# vim:set ts=2 sw=2 et:
