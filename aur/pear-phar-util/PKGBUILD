@@ -8,7 +8,7 @@ pkgdesc="Security-oriented utilities for Phar archives."
 arch=('i686' 'x86_64')
 url="https://github.com/koto/phar-util"
 license=('MIT')
-depends=('php>=5.3')
+depends=('php>=5.3' 'pear-console-commandline')
 makedepends=('php-pear')
 source=(http://pear.kotowicz.net/get/$_pkgname-$pkgver.tgz)
 sha256sums=('425165711506ce0075e7a442098cf3c97786e3f2d676784df384845c7a77665b')
