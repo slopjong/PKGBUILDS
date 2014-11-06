@@ -11,8 +11,8 @@ license=('BSD License')
 
 build()
 {
-  cd $startdir/src/pyexcelerator-$pkgver
-  python2 setup.py install --root=$startdir/pkg
+  cd "$srcdir"/pyexcelerator-$pkgver
+  python2 setup.py install --root="$pkgdir"
 }
 
 md5sums=('2b49954d2647c846df9bb24cac0980ca')
