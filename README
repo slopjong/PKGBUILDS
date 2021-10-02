@@ -6,3 +6,4 @@ To install a package e.g. maven3, download the collection or clone the repositor
 * git clone --depth 1 git://github.com/slopjong/PKGBUILDS.git SLOPBUILDS
 
 Change into the directory of the desired package and execute 'makepkg -si'. This will build the package and install it afterwards.
+Thanks for visiting
